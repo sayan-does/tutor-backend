@@ -1,0 +1,23 @@
+# Core Web Framework
+flask==2.3.3
+flask-cors==4.0.0
+
+# Machine Learning & NLP
+torch==2.1.0
+transformers==4.35.0
+sentence-transformers==2.2.2
+accelerate==0.24.0
+
+# Document Processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# Vector Database
+chromadb==0.4.18
+
+# Utility Libraries
+numpy==1.26.2
+pydantic==2.5.1
+
+# Optional: For production
+gunicorn==21.2.0
