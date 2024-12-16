@@ -153,16 +153,29 @@ qa_system = DocumentQASystem()
 
 @app.route('/upload', methods=['POST'])
 def upload_document():
+    # Default user_id if not provided
     user_id = request.form.get('user_id', 'default_user')
+
+    # Validate if the file is included in the request
+    if 'file' not in request.files:
+        return jsonify({"status": "error", "message": "No file provided"}), 400
+
     file = request.files['file']
 
+    # Ensure the file has a valid name and content
+    if file.filename == '':
+        return jsonify({"status": "error", "message": "File name is missing"}), 400
+
     try:
+        # Process and store the document
         document_length = qa_system.store_document(user_id, file)
         return jsonify({
             "status": "success",
             "message": f"Document processed. Length: {document_length} characters"
         }), 200
     except Exception as e:
+        # Log the exception for debugging
+        app.logger.error(f"Error processing document: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
